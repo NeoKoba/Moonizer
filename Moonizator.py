@@ -30,21 +30,6 @@ class AESCipher:
 
 
 
-'''def rocket64():
-    cat = input("Input text \n")
-    cat = binascii.b2a_base64(cat.encode('utf-8'))
-    print(cat)
-    dog = b""
-    for x in range(1,58):
-        cat = binascii.b2a_base64(cat)
-        print(x)
-    print(cat)
-    for x in range(1,58):
-        cat = binascii.a2b_base64(cat)
-    dog = binascii.a2b_base64(cat)
-    print("decrypted:  " + dog)'''
-
-
 
 def Moonizer(path,pss, pss2, salt,output):
     goodpss = pss.encode("utf-8")
@@ -69,14 +54,9 @@ def Moonizer(path,pss, pss2, salt,output):
     cipher2 = AESCipher(verygoodpss2)
     double_encrypted = cipher2.encrypt(encrypted)
     kek = str(double_encrypted)
-    #print double_encrypted
-    #print encrypted
-    #print cipher.decrypt(cipher2.decrypt(double_encrypted))
     outfile = open(output, "wb")
     #outfile.write("")
     outfile.write(kek)
-   # print "output + " + outfile.read()
-    #print double_encrypted
     outfile.close()
     urfile.close()
     print "Done"
@@ -103,12 +83,8 @@ def Demoonizer(path,pss, pss2, salt,output):
     encrypted = cipher.decrypt(tmp)
     double_encrypted = cipher2.decrypt(encrypted)
     kek = str(double_encrypted)
-    #print "The encrypted ===>>  " + str(double_encrypted)
-    #print encrypted
     outfile = open(output, "wb")
     outfile.write(str(kek))
-    #print "output final + " + outfile.read()
-    #print double_encrypted
     outfile.close()
     urfile.close()
     print "Done"
@@ -133,7 +109,7 @@ def parsering():
                 Moonizer(args['input'], args['pass1'], args['pass2'], int(args['salt']), out)
         else:
             print "Not enough arguments, please make sure you specified at least the input, password1, password2 and salt"
-    if(args['decrypt']):
+    elif(args['decrypt']):
         if (args['input']!=None and args['pass1']!=None and args['pass2']!=None and args['salt']!=None and args['output']!=None):
             Demoonizer(args['input'], args['pass1'], args['pass2'], int(args['salt']), args['output'])
         else:
@@ -143,5 +119,3 @@ def parsering():
 
 
 parsering()
-#Moonizer(r"C:\MOON\kek.jpg","use only english lol", "something other",12, r"C:\MOON\kek.moon")
-#Demoonizer(r"C:\MOON\xd2.jpg","use only english lol", "something other",12)
